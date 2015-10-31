@@ -1,1 +1,1 @@
-# HAKTANE - Hue and Arduino integration to Keep Talking and Nobody Explodes
+# HACTANE - Hue and Arduino Connector for Keep Talking and Nobody Explodes
