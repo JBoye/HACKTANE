@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html class="no-js"><!--<![endif]-->
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Hacktane Manual</title>
+	<meta name="viewport" content="initial-scale=1"> 
+	<link href='https://fonts.googleapis.com/css?family=Special+Elite' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" type="text/css" href="css/normalize.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<script>
+		(function() {
+			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					var data = JSON.parse(this.responseText);
+					if(data.length > 0){
+						document.getElementById("demo").innerHTML = data[0].internalipaddress;
+						document.getElementById("diagram").src = "http://" + data[0].internalipaddress + "/hue_logo_3.png";
+					}
+					
+				}
+			};
+			xhttp.open("GET", "https://www.meethue.com/api/nupnp", true);
+			xhttp.send();
+		})();
+	</script>
+</head>
+<body>
+	<div class="section">
+		<div class="page page-bg-01">
+			<div class="page-header">
+				<span class="page-header-doc-title">Keep Talking and Nobody Explodes Mod</span>
+				<span class="page-header-section-title">HACKTANE</span>
+			</div>
+			<div class="page-content">
+				<img src="img/Component.svg" class="diagram" id="diagram">
+				<h2>Setting up HACKTANE</h2>
+				<p class="flavour-text"><strong>H</strong>ue and <strong>A</strong>rduino <strong>C</strong>onnector for <strong>K</strong>eep <strong>T</strong>alking <strong>A</strong>nd <strong>N</strong>obody <strong>E</strong>xplodes</p>
+				<p><strong><em>Hue Setup</em></strong></p>
+				<p>Make sure your computer and Philips Hue bridge is connected to the same network</p>
+				<p id="demo"></p>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
