@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html class="no-js"><!--<![endif]-->
 <head>
+	<base href="https://jboye.github.io/HACKTANE/" />
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>Hacktane Manual</title>
@@ -10,15 +11,28 @@
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 	<script>
 		(function() {
+			var config = {
+				"ip":"XX.XX.XX.XX",
+				"brightness":255,
+				"saturation":121,
+				"hue":15329	
+			}
+			function init(ip){
+				//document.getElementById("ip").innerHTML = ip;
+				document.getElementById("diagram").src = "http://" + ip + "/hue_logo_3.png";
+				config.ip = "http://" + ip;
+				document.getElementById("config").innerHTML = JSON.stringify(config, null, 2);
+			}
 			var xhttp = new XMLHttpRequest();
 			xhttp.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
 					var data = JSON.parse(this.responseText);
 					if(data.length > 0){
-						document.getElementById("demo").innerHTML = data[0].internalipaddress;
-						document.getElementById("diagram").src = "http://" + data[0].internalipaddress + "/hue_logo_3.png";
+						document.getElementById("success").style.display = "block";
+						init(data[0].internalipaddress);
+					}else{
+						document.getElementById("failed").style.display = "block";
 					}
-					
 				}
 			};
 			xhttp.open("GET", "https://www.meethue.com/api/nupnp", true);
@@ -38,8 +52,23 @@
 				<h2>Setting up HACKTANE</h2>
 				<p class="flavour-text"><strong>H</strong>ue and <strong>A</strong>rduino <strong>C</strong>onnector for <strong>K</strong>eep <strong>T</strong>alking <strong>A</strong>nd <strong>N</strong>obody <strong>E</strong>xplodes</p>
 				<p><strong><em>Hue Setup</em></strong></p>
-				<p>Make sure your computer and Philips Hue bridge is connected to the same network</p>
-				<p id="demo"></p>
+				<div id="success" style="display:none">
+					<p>Wuhuu!, we were able to detect your Philips Hue bridge.</p>
+					<p>Thats the easy part. Now <strong>you</strong> need to find modsettings.json</p>
+					<p>If you use Steam Workshop, its in<br>Steam/steamapps/workshop/content/341800/modsettings.json</p>
+					<p>If you manually installed this mod, you can find it in<br>Keep Talking and Nobody Explodes/mods/hacktane/modsettings.json</p>
+					<p>If you can't find your Steam folder, Open Steam, right-click on "Keep Talking And Nobody Explodes", click "Properties" > "Local files" > "Browse local files"</p>
+					<p>Open modsettings.json in a texteditor (like notepad) and insert the following:</p>
+					<pre id="config" style="background:#eee"></pre>
+					<p>Close and save modsettings.json</p>
+					<p>Now go press the link button on the bridge</p>
+					<p>Start the game (and enable mods) within 30 seconds</p>
+					<p><strong><em>Start defusing! </em></strong></p>
+				</div>				
+				<div id="failed" style="display:none">
+					<p>Oh noes... We couldn't find your Philips Hue bridge</p>
+					<p>Make sure your computer and bridge is connected to the same network</p>
+				</div>
 			</div>
 		</div>
 	</div>
